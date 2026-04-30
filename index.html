@@ -492,6 +492,16 @@ footer{background:#050505;border-top:1px solid var(--border);padding:56px 24px 2
             </div>
           </div>
         </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer">
+            <input type="checkbox" id="chkPrivacy" required style="margin-top:2px;accent-color:var(--orange);width:16px;height:16px;min-width:16px;cursor:pointer"/>
+            <span style="font-size:13px;color:var(--grey);line-height:1.55" data-i18n="fpriv">Acepto la <a href="politica-privacidad.html" style="color:var(--orange);text-decoration:underline;text-underline-offset:3px">Política de Privacidad</a></span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer">
+            <input type="checkbox" id="chkComercial" style="margin-top:2px;accent-color:var(--orange);width:16px;height:16px;min-width:16px;cursor:pointer"/>
+            <span style="font-size:13px;color:var(--grey);line-height:1.55" data-i18n="fcom">Acepto recibir información comercial, incluso por correo electrónico.</span>
+          </label>
+        </div>
         <button type="submit" class="btn-primary" style="justify-content:center;border:none;cursor:pointer;width:100%" data-i18n="fbtn">Enviar solicitud →</button>
       </form>
       <div class="contacto-info">
@@ -615,6 +625,8 @@ const T={
     'fn':'Nombre','fe':'Email','ft':'Teléfono','fsrv':'Servicio','fsel':'Selecciona...','fo1':'Construcción / Fachadas','fo2':'Geotecnia / Taludes','fo3':'Industria / Mantenimiento','fo4':'Líneas de vida','fo5':'Aerogeneradores','fo6':'Otro',
     'fmsg':'Describe tu proyecto','furg':'¿Es urgente?','urg1':'Sin urgencia','urg1d':'Planificable','urg2':'Pronto','urg2d':'Esta semana','urg3':'Urgente','urg3d':'Inmediato',
     'fbtn':'Enviar solicitud →',
+    'fpriv':'Acepto la <a href="politica-privacidad.html" style="color:var(--orange);text-decoration:underline;text-underline-offset:3px">Política de Privacidad</a>',
+    'fcom':'Acepto recibir información comercial, incluso por correo electrónico.',
     'c1t':'Teléfono','c2t':'Email','c3t':'Cobertura','c3d':'Nacional e internacional. Trabajamos en toda España y en proyectos internacionales.',
     'c4t':'Respuesta','c4d':'Presupuesto sin compromiso en menos de 24 horas.',
     'cert-t':'Certificaciones y garantías','cert1':'Técnicos certificados IRATA','cert2':'Seguro de responsabilidad civil','cert3':'Protocolo de seguridad propio','cert4':'Documentación técnica incluida',
@@ -675,6 +687,8 @@ const T={
     'fn':'Nom','fe':'Email','ft':'Telèfon','fsrv':'Servei','fsel':'Selecciona...','fo1':'Construcció / Façanes','fo2':'Geotècnia / Talussos','fo3':'Indústria / Manteniment','fo4':'Línies de vida','fo5':'Aerogeneradors','fo6':'Altre',
     'fmsg':'Descriu el teu projecte','furg':'És urgent?','urg1':'Sense urgència','urg1d':'Planificable','urg2':'Aviat','urg2d':'Aquesta setmana','urg3':'Urgent','urg3d':'Immediat',
     'fbtn':'Enviar sol·licitud →',
+    'fpriv':'Accepto la <a href="politica-privacidad.html" style="color:var(--orange);text-decoration:underline;text-underline-offset:3px">Política de Privacitat</a>',
+    'fcom':'Accepto rebre informació comercial, fins i tot per correu electrònic.',
     'c1t':'Telèfon','c2t':'Email','c3t':'Cobertura','c3d':'Nacional i internacional. Treballem a tota Espanya i en projectes internacionals.',
     'c4t':'Resposta','c4d':'Pressupost sense compromís en menys de 24 hores.',
     'cert-t':'Certificacions i garanties','cert1':'Tècnics certificats IRATA','cert2':'Assegurança de responsabilitat civil','cert3':'Protocol de seguretat propi','cert4':'Documentació tècnica inclosa',
