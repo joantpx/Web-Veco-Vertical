@@ -95,22 +95,13 @@ section{padding:88px 24px}
 .servicio-items{display:flex;flex-direction:column;gap:8px}
 .servicio-item{font-size:13px;color:var(--grey-light);display:flex;align-items:center;gap:8px}
 .servicio-item::before{content:'→';color:var(--orange);font-weight:700;flex-shrink:0}
-.esp-bg{background:var(--dark)}
-.esp-header-row{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px}
-.esp-arrows{display:flex;gap:10px;padding-bottom:4px}
-.esp-arrow{width:48px;height:48px;border-radius:50%;border:1px solid var(--border);background:var(--dark3);color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;line-height:1}
-.esp-arrow:hover{background:var(--orange);border-color:var(--orange);color:#000}
-.esp-grid{display:flex;overflow-x:auto;gap:20px;margin-top:32px;padding-bottom:4px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-.esp-grid::-webkit-scrollbar{display:none}
-.esp-card{background:var(--dark3);border:1px solid var(--border);border-radius:16px;padding:48px 36px;transition:all .35s;min-width:calc((100% - 40px) / 3);flex-shrink:0;scroll-snap-align:start;display:flex;flex-direction:column;height:420px;position:relative;overflow:hidden}
-.esp-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .35s}
-.esp-card:hover{border-color:rgba(245,200,0,0.3);background:var(--dark4);transform:translateY(-6px)}
-.esp-card:hover::after{transform:scaleX(1)}
-.esp-card-icon{font-size:56px;margin-bottom:32px;display:block;line-height:1}
-.esp-card-title{font-size:20px;font-weight:800;color:#fff;margin-bottom:14px;line-height:1.2}
-.esp-card-desc{font-size:14px;color:var(--grey);line-height:1.7;flex:1}
-.esp-card-arrow{margin-top:auto;padding-top:24px;font-size:20px;color:var(--orange);font-weight:700;transition:transform .2s}
-.esp-card:hover .esp-card-arrow{transform:translateX(6px)}
+.esp-bg{background:var(--dark2)}
+.esp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:48px}
+.esp-card{background:var(--dark3);border:1px solid var(--border);border-radius:12px;padding:24px 20px;transition:all .25s}
+.esp-card:hover{border-color:rgba(245,200,0,0.4);background:var(--dark4)}
+.esp-card-icon{font-size:28px;margin-bottom:12px;display:block}
+.esp-card-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:6px}
+.esp-card-desc{font-size:13px;color:var(--grey);line-height:1.6}
 .porque-bg{background:var(--orange);position:relative;overflow:hidden}
 .porque-bg::before{content:'';position:absolute;right:-200px;top:-200px;width:600px;height:600px;background:rgba(0,0,0,0.1);border-radius:50%}
 .porque-inner{max-width:1200px;margin:0 auto;padding:88px 24px;position:relative;z-index:2}
@@ -352,26 +343,18 @@ footer{background:#050505;border-top:1px solid var(--border);padding:56px 24px 2
 
 <section id="especialidades" class="esp-bg">
   <div class="section-inner">
-    <div class="esp-header-row">
-      <div>
-        <div class="section-tag" data-i18n="esp-tag">Especialidades</div>
-        <h2 class="section-title" data-i18n="esp-title">Todo tipo de trabajo vertical</h2>
-        <p class="section-sub" data-i18n="esp-sub">Si requiere altura o acceso difícil, nosotros tenemos la solución.</p>
-      </div>
-      <div class="esp-arrows">
-        <button class="esp-arrow" onclick="espScroll(-1)" aria-label="Anterior">&#8592;</button>
-        <button class="esp-arrow" onclick="espScroll(1)" aria-label="Siguiente">&#8594;</button>
-      </div>
-    </div>
-    <div class="esp-grid" id="espGrid">
-      <div class="esp-card"><span class="esp-card-icon">🌬️</span><h3 class="esp-card-title" data-i18n="e1t">Aerogeneradores eólicos</h3><div class="esp-card-desc" data-i18n="e1d">Mantenimiento, inspección y reparación sin necesidad de grúas.</div><div class="esp-card-arrow">→</div></div>
-      <div class="esp-card"><span class="esp-card-icon">🔗</span><h3 class="esp-card-title" data-i18n="e2t">Líneas de vida</h3><div class="esp-card-desc" data-i18n="e2d">Instalación y certificación de sistemas de protección anticaída en edificios.</div><div class="esp-card-arrow">→</div></div>
-      <div class="esp-card"><span class="esp-card-icon">🏢</span><h3 class="esp-card-title" data-i18n="e3t">Fachadas y cubiertas</h3><div class="esp-card-desc" data-i18n="e3d">Reparación, pintura, sellado e impermeabilización en altura.</div><div class="esp-card-arrow">→</div></div>
-      <div class="esp-card"><span class="esp-card-icon">🪨</span><h3 class="esp-card-title" data-i18n="e4t">Estabilización de taludes</h3><div class="esp-card-desc" data-i18n="e4d">Protección con mallas, anclajes y bulonado en paredes rocosas.</div><div class="esp-card-arrow">→</div></div>
-      <div class="esp-card"><span class="esp-card-icon">🔧</span><h3 class="esp-card-title" data-i18n="e5t">Mantenimiento industrial</h3><div class="esp-card-desc" data-i18n="e5d">Inspección y mantenimiento en zonas de difícil acceso.</div><div class="esp-card-arrow">→</div></div>
-      <div class="esp-card"><span class="esp-card-icon">🌉</span><h3 class="esp-card-title" data-i18n="e6t">Puentes y viaductos</h3><div class="esp-card-desc" data-i18n="e6d">Inspección, reparación y mantenimiento de infraestructuras elevadas.</div><div class="esp-card-arrow">→</div></div>
-      <div class="esp-card"><span class="esp-card-icon">🏭</span><h3 class="esp-card-title" data-i18n="e7t">Silos y depósitos</h3><div class="esp-card-desc" data-i18n="e7d">Interior y exterior de silos, depósitos y estructuras cilíndricas.</div><div class="esp-card-arrow">→</div></div>
-      <div class="esp-card"><span class="esp-card-icon">🏔️</span><h3 class="esp-card-title" data-i18n="e8t">Zonas de difícil acceso</h3><div class="esp-card-desc" data-i18n="e8d">Donde los métodos convencionales no llegan, VECO tiene la solución.</div><div class="esp-card-arrow">→</div></div>
+    <div class="section-tag" data-i18n="esp-tag">Especialidades</div>
+    <h2 class="section-title" data-i18n="esp-title">Todo tipo de trabajo vertical</h2>
+    <p class="section-sub" data-i18n="esp-sub">Si requiere altura o acceso difícil, nosotros tenemos la solución.</p>
+    <div class="esp-grid">
+      <div class="esp-card"><span class="esp-card-icon">🌬️</span><h3 class="esp-card-title" data-i18n="e1t">Aerogeneradores eólicos</h3><div class="esp-card-desc" data-i18n="e1d">Mantenimiento, inspección y reparación sin necesidad de grúas.</div></div>
+      <div class="esp-card"><span class="esp-card-icon">🔗</span><h3 class="esp-card-title" data-i18n="e2t">Líneas de vida</h3><div class="esp-card-desc" data-i18n="e2d">Instalación y certificación de sistemas de protección anticaída en edificios.</div></div>
+      <div class="esp-card"><span class="esp-card-icon">🏢</span><h3 class="esp-card-title" data-i18n="e3t">Fachadas y cubiertas</h3><div class="esp-card-desc" data-i18n="e3d">Reparación, pintura, sellado e impermeabilización en altura.</div></div>
+      <div class="esp-card"><span class="esp-card-icon">🪨</span><h3 class="esp-card-title" data-i18n="e4t">Estabilización de taludes</h3><div class="esp-card-desc" data-i18n="e4d">Protección con mallas, anclajes y bulonado en paredes rocosas.</div></div>
+      <div class="esp-card"><span class="esp-card-icon">🔧</span><h3 class="esp-card-title" data-i18n="e5t">Mantenimiento industrial</h3><div class="esp-card-desc" data-i18n="e5d">Inspección y mantenimiento en zonas de difícil acceso.</div></div>
+      <div class="esp-card"><span class="esp-card-icon">🌉</span><h3 class="esp-card-title" data-i18n="e6t">Puentes y viaductos</h3><div class="esp-card-desc" data-i18n="e6d">Inspección, reparación y mantenimiento de infraestructuras elevadas.</div></div>
+      <div class="esp-card"><span class="esp-card-icon">🏭</span><h3 class="esp-card-title" data-i18n="e7t">Silos y depósitos</h3><div class="esp-card-desc" data-i18n="e7d">Interior y exterior de silos, depósitos y estructuras cilíndricas.</div></div>
+      <div class="esp-card"><span class="esp-card-icon">🏔️</span><h3 class="esp-card-title" data-i18n="e8t">Zonas de difícil acceso</h3><div class="esp-card-desc" data-i18n="e8d">Donde los métodos convencionales no llegan, VECO tiene la solución.</div></div>
     </div>
   </div>
 </section>
@@ -726,12 +709,6 @@ function setLang(l){
   });
   document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase()===l));
   document.documentElement.lang=l;
-}
-
-function espScroll(dir){
-  const g=document.getElementById('espGrid');
-  const card=g.querySelector('.esp-card');
-  g.scrollBy({left:dir*(card.offsetWidth+20),behavior:'smooth'});
 }
 
 function selectUrg(el,val){
