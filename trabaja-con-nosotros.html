@@ -15,6 +15,10 @@ body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#f0f0f0;overflow-x:
 header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
 .header-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:72px}
 .logo img{height:36px;filter:brightness(0) saturate(100%) invert(83%) sepia(60%) saturate(600%) hue-rotate(5deg) brightness(105%)}
+.header-right{display:flex;align-items:center;gap:16px}
+.lang-sw{display:flex;border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.lang-btn{padding:6px 11px;font-size:12px;font-weight:700;border:none;background:transparent;cursor:pointer;color:var(--grey);transition:all .2s}
+.lang-btn.active{background:var(--orange);color:#fff}
 .nav-back{font-size:14px;font-weight:500;color:var(--grey);text-decoration:none;display:flex;align-items:center;gap:8px;transition:color .2s}
 .nav-back:hover{color:#fff}
 
@@ -29,7 +33,6 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.97);backdrop
 
 .main{max-width:1200px;margin:0 auto;padding:88px 24px 112px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
 
-.info-side{}
 .info-block-title{font-size:11px;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:2px;margin-bottom:20px}
 .info-intro{font-size:16px;line-height:1.8;color:var(--grey);font-weight:300;margin-bottom:48px}
 .info-intro strong{color:#fff;font-weight:600}
@@ -47,7 +50,6 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.97);backdrop
 .profile-name{font-size:14px;font-weight:600;color:#fff;flex:1}
 .profile-badge{font-size:11px;font-weight:700;color:var(--orange);background:rgba(245,200,0,0.1);border:1px solid rgba(245,200,0,0.25);padding:3px 10px;border-radius:20px}
 
-.form-side{}
 .form-card{background:var(--dark2);border:1px solid var(--border);border-radius:16px;padding:40px}
 .form-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:6px}
 .form-sub{font-size:14px;color:var(--grey);margin-bottom:32px;line-height:1.6}
@@ -69,7 +71,6 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.97);backdrop
 .consent span a{color:var(--orange);text-decoration:underline;text-underline-offset:3px}
 .btn-submit{background:var(--orange);color:#000;padding:16px 32px;border-radius:8px;font-size:15px;font-weight:700;border:none;cursor:pointer;width:100%;transition:all .2s;margin-top:4px}
 .btn-submit:hover{background:var(--orange-dark);transform:translateY(-1px)}
-
 .success-msg{display:none;background:rgba(245,200,0,0.1);border:1px solid rgba(245,200,0,0.3);border-radius:10px;padding:20px 24px;text-align:center;margin-top:16px}
 .success-msg p{font-size:15px;color:#fff;font-weight:500}
 .success-msg span{font-size:13px;color:var(--grey);display:block;margin-top:4px}
@@ -82,9 +83,7 @@ footer{background:#050505;border-top:1px solid var(--border);padding:40px 24px}
 .footer-links a{font-size:12px;color:var(--grey);text-decoration:none;transition:color .2s}
 .footer-links a:hover{color:#fff}
 
-@media(max-width:968px){
-  .main{grid-template-columns:1fr;gap:56px}
-}
+@media(max-width:968px){.main{grid-template-columns:1fr;gap:56px}}
 @media(max-width:768px){
   .hero{padding:100px 24px 72px}
   .main{padding:56px 24px 80px}
@@ -100,10 +99,16 @@ footer{background:#050505;border-top:1px solid var(--border);padding:40px 24px}
 <header>
   <div class="header-inner">
     <a href="index.html" class="logo"><img src="https://assets.zyrosite.com/mnlqeyRk6Gt1azlL/veco_horizontal_black-A1aBkD6w92tllavo.svg" alt="VECO Vertical"/></a>
-    <a href="index.html" class="nav-back">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M11 7H3M6 4L3 7l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Volver al inicio
-    </a>
+    <div class="header-right">
+      <div class="lang-sw">
+        <button class="lang-btn active" onclick="setLang('es')">ES</button>
+        <button class="lang-btn" onclick="setLang('ca')">CA</button>
+      </div>
+      <a href="index.html" class="nav-back">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M11 7H3M6 4L3 7l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span data-i18n="nav-back">Volver al inicio</span>
+      </a>
+    </div>
   </div>
 </header>
 
@@ -111,125 +116,113 @@ footer{background:#050505;border-top:1px solid var(--border);padding:40px 24px}
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-inner">
-    <div class="hero-tag">Trabaja con nosotros</div>
-    <h1>Nuestro equipo<br>te está <em>buscando.</em></h1>
-    <p>En VECO incorporamos regularmente nuevos perfiles para reforzar nuestras unidades. Si te apasiona el trabajo en altura y quieres formar parte de un equipo de referencia, queremos conocerte.</p>
+    <div class="hero-tag" data-i18n="hero-tag">Trabaja con nosotros</div>
+    <h1 data-i18n="hero-title">Nuestro equipo<br>te está <em>buscando.</em></h1>
+    <p data-i18n="hero-sub">En VECO incorporamos regularmente nuevos perfiles para reforzar nuestras unidades. Si te apasiona el trabajo en altura y quieres formar parte de un equipo de referencia, queremos conocerte.</p>
   </div>
 </div>
 
 <div class="main">
 
   <div class="info-side">
-    <div class="info-block-title">Por qué VECO</div>
-    <p class="info-intro">Somos una empresa pequeña y altamente especializada. Aquí cada persona cuenta y <strong>los proyectos son únicos</strong>. Trabajamos en toda España y en el extranjero, en entornos donde muy pocos pueden llegar.</p>
+    <div class="info-block-title" data-i18n="why-tag">Por qué VECO</div>
+    <p class="info-intro" data-i18n="why-intro">Somos una empresa pequeña y altamente especializada. Aquí cada persona cuenta y <strong>los proyectos son únicos</strong>. Trabajamos en toda España y en el extranjero, en entornos donde muy pocos pueden llegar.</p>
 
     <div class="perks">
       <div class="perk">
         <div class="perk-icon">🏅</div>
-        <div>
-          <h3>Formación y certificación IRATA</h3>
-          <p>Apoyamos el desarrollo profesional de nuestro equipo con formación continua y acceso a certificaciones internacionales.</p>
-        </div>
+        <div><h3 data-i18n="perk1t">Formación y certificación IRATA</h3><p data-i18n="perk1d">Apoyamos el desarrollo profesional de nuestro equipo con formación continua y acceso a certificaciones internacionales.</p></div>
       </div>
       <div class="perk">
         <div class="perk-icon">🌍</div>
-        <div>
-          <h3>Proyectos nacionales e internacionales</h3>
-          <p>Trabajamos en toda España y en proyectos internacionales. Cada obra es diferente y en lugares únicos.</p>
-        </div>
+        <div><h3 data-i18n="perk2t">Proyectos nacionales e internacionales</h3><p data-i18n="perk2d">Trabajamos en toda España y en proyectos internacionales. Cada obra es diferente y en lugares únicos.</p></div>
       </div>
       <div class="perk">
         <div class="perk-icon">🛡️</div>
-        <div>
-          <h3>Seguridad como prioridad absoluta</h3>
-          <p>Protocolo de seguridad propio. Cero accidentes en toda nuestra trayectoria. Tu integridad es innegociable.</p>
-        </div>
+        <div><h3 data-i18n="perk3t">Seguridad como prioridad absoluta</h3><p data-i18n="perk3d">Protocolo de seguridad propio. Cero accidentes en toda nuestra trayectoria. Tu integridad es innegociable.</p></div>
       </div>
       <div class="perk">
         <div class="perk-icon">🤝</div>
-        <div>
-          <h3>Equipo reducido y profesional</h3>
-          <p>Ambiente de trabajo cercano, donde cada técnico tiene voz y los proyectos se trabajan con criterio propio.</p>
-        </div>
+        <div><h3 data-i18n="perk4t">Equipo reducido y profesional</h3><p data-i18n="perk4d">Ambiente de trabajo cercano, donde cada técnico tiene voz y los proyectos se trabajan con criterio propio.</p></div>
       </div>
     </div>
 
-    <div class="info-block-title">Perfiles que buscamos</div>
+    <div class="info-block-title" data-i18n="profiles-tag">Perfiles que buscamos</div>
     <div class="profiles">
-      <div class="profile-item"><div class="profile-dot"></div><span class="profile-name">Técnico IRATA Nivel 1</span><span class="profile-badge">Activo</span></div>
-      <div class="profile-item"><div class="profile-dot"></div><span class="profile-name">Técnico IRATA Nivel 2</span><span class="profile-badge">Activo</span></div>
-      <div class="profile-item"><div class="profile-dot"></div><span class="profile-name">Técnico IRATA Nivel 3</span><span class="profile-badge">Activo</span></div>
-      <div class="profile-item"><div class="profile-dot"></div><span class="profile-name">Técnico de geotecnia</span><span class="profile-badge">Activo</span></div>
-      <div class="profile-item"><div class="profile-dot"></div><span class="profile-name">Técnico industrial en altura</span><span class="profile-badge">Activo</span></div>
-      <div class="profile-item"><div class="profile-dot"></div><span class="profile-name">Candidatura espontánea</span></div>
+      <div class="profile-item"><div class="profile-dot"></div><span class="profile-name">Técnico IRATA Nivel 1</span><span class="profile-badge" data-i18n="badge">Activo</span></div>
+      <div class="profile-item"><div class="profile-dot"></div><span class="profile-name">Técnico IRATA Nivel 2</span><span class="profile-badge" data-i18n="badge">Activo</span></div>
+      <div class="profile-item"><div class="profile-dot"></div><span class="profile-name">Técnico IRATA Nivel 3</span><span class="profile-badge" data-i18n="badge">Activo</span></div>
+      <div class="profile-item"><div class="profile-dot"></div><span class="profile-name" data-i18n="p4">Técnico de geotecnia</span><span class="profile-badge" data-i18n="badge">Activo</span></div>
+      <div class="profile-item"><div class="profile-dot"></div><span class="profile-name" data-i18n="p5">Técnico industrial en altura</span><span class="profile-badge" data-i18n="badge">Activo</span></div>
+      <div class="profile-item"><div class="profile-dot"></div><span class="profile-name" data-i18n="p6">Candidatura espontánea</span></div>
     </div>
   </div>
 
   <div class="form-side">
     <div class="form-card">
-      <h2 class="form-title">Envía tu candidatura</h2>
-      <p class="form-sub">Rellena el formulario y adjunta tu CV. Revisamos todas las candidaturas y te contactamos si hay encaje.</p>
+      <h2 class="form-title" data-i18n="form-title">Envía tu candidatura</h2>
+      <p class="form-sub" data-i18n="form-sub">Rellena el formulario y adjunta tu CV. Revisamos todas las candidaturas y te contactamos si hay encaje.</p>
       <form class="form-fields" onsubmit="enviarCandidatura(event)">
         <div class="form-row">
-          <div class="fg"><label>Nombre</label><input type="text" placeholder="Joan" required/></div>
-          <div class="fg"><label>Apellidos</label><input type="text" placeholder="García López" required/></div>
+          <div class="fg"><label data-i18n="f-nombre">Nombre</label><input type="text" required/></div>
+          <div class="fg"><label data-i18n="f-apellidos">Apellidos</label><input type="text" required/></div>
         </div>
         <div class="form-row">
-          <div class="fg"><label>Email</label><input type="email" placeholder="joan@email.com" required/></div>
-          <div class="fg"><label>Teléfono</label><input type="tel" placeholder="+34 600 000 000"/></div>
+          <div class="fg"><label data-i18n="f-email">Email</label><input type="email" required/></div>
+          <div class="fg"><label data-i18n="f-tel">Teléfono</label><input type="tel"/></div>
         </div>
         <div class="form-row">
           <div class="fg">
-            <label>Perfil profesional</label>
+            <label data-i18n="f-perfil">Perfil profesional</label>
             <select required>
-              <option value="">Selecciona...</option>
-              <option>Técnico IRATA Nivel 1</option>
-              <option>Técnico IRATA Nivel 2</option>
-              <option>Técnico IRATA Nivel 3</option>
-              <option>Técnico de geotecnia</option>
-              <option>Técnico industrial en altura</option>
-              <option>Candidatura espontánea</option>
-              <option>Otro</option>
+              <option value="" data-i18n="fsel">Selecciona...</option>
+              <option data-i18n="fp1">Técnico IRATA Nivel 1</option>
+              <option data-i18n="fp2">Técnico IRATA Nivel 2</option>
+              <option data-i18n="fp3">Técnico IRATA Nivel 3</option>
+              <option data-i18n="fp4">Técnico de geotecnia</option>
+              <option data-i18n="fp5">Técnico industrial en altura</option>
+              <option data-i18n="fp6">Candidatura espontánea</option>
+              <option data-i18n="fp7">Otro</option>
             </select>
           </div>
           <div class="fg">
-            <label>Área geográfica</label>
+            <label data-i18n="f-area">Área geográfica</label>
             <select>
-              <option value="">Selecciona...</option>
-              <option>Cataluña</option>
+              <option value="" data-i18n="fsel">Selecciona...</option>
+              <option data-i18n="fa1">Cataluña</option>
               <option>Madrid</option>
               <option>Valencia</option>
               <option>Andalucía</option>
-              <option>País Vasco</option>
-              <option>Resto de España</option>
-              <option>Internacional</option>
+              <option data-i18n="fa5">País Vasco</option>
+              <option data-i18n="fa6">Resto de España</option>
+              <option data-i18n="fa7">Internacional</option>
             </select>
           </div>
         </div>
         <div class="fg">
-          <label>Adjuntar CV (PDF)</label>
+          <label data-i18n="f-cv">Adjuntar CV (PDF)</label>
           <input type="file" accept=".pdf,.doc,.docx" required/>
-          <p class="file-hint">Formatos admitidos: PDF, DOC, DOCX · Máximo 5 MB</p>
+          <p class="file-hint" data-i18n="f-cv-hint">Formatos admitidos: PDF, DOC, DOCX · Máximo 5 MB</p>
         </div>
         <div class="fg">
-          <label>Breve presentación</label>
-          <textarea placeholder="Cuéntanos tu experiencia, certificaciones y por qué quieres unirte a VECO..."></textarea>
+          <label data-i18n="f-pres">Breve presentación</label>
+          <textarea></textarea>
         </div>
         <div class="consent">
           <label>
             <input type="checkbox" required/>
-            <span>Acepto la <a href="politica-privacidad.html">Política de Privacidad</a></span>
+            <span data-i18n="f-consent1">Acepto la <a href="politica-privacidad.html">Política de Privacidad</a></span>
           </label>
           <label>
             <input type="checkbox"/>
-            <span>Acepto recibir comunicaciones relacionadas con ofertas de empleo de VECO.</span>
+            <span data-i18n="f-consent2">Acepto recibir comunicaciones relacionadas con ofertas de empleo de VECO.</span>
           </label>
         </div>
-        <button type="submit" class="btn-submit">Enviar candidatura →</button>
+        <button type="submit" class="btn-submit" data-i18n="f-btn">Enviar candidatura →</button>
       </form>
       <div class="success-msg" id="successMsg">
-        <p>¡Candidatura recibida!</p>
-        <span>Revisamos todas las candidaturas. Si hay encaje, nos ponemos en contacto contigo.</span>
+        <p data-i18n="success-title">¡Candidatura recibida!</p>
+        <span data-i18n="success-sub">Revisamos todas las candidaturas. Si hay encaje, nos ponemos en contacto contigo.</span>
       </div>
     </div>
   </div>
@@ -239,16 +232,108 @@ footer{background:#050505;border-top:1px solid var(--border);padding:40px 24px}
 <footer>
   <div class="footer-bottom-inner">
     <a href="index.html" class="footer-logo"><img src="https://assets.zyrosite.com/mnlqeyRk6Gt1azlL/veco_horizontal_black-A1aBkD6w92tllavo.svg" alt="VECO Vertical"/></a>
-    <span class="footer-copy">© 2025 VECO ALTURA S.L. · Todos los derechos reservados</span>
+    <span class="footer-copy" data-i18n="fcopy">© 2025 VECO ALTURA S.L. · Todos los derechos reservados</span>
     <div class="footer-links">
-      <a href="trabaja-con-nosotros.html">Trabaja con nosotros</a>
-      <a href="aviso-legal.html">Aviso Legal</a>
-      <a href="politica-privacidad.html">Privacidad</a>
+      <a href="trabaja-con-nosotros.html" data-i18n="ftrabaja">Trabaja con nosotros</a>
+      <a href="aviso-legal.html" data-i18n="faviso">Aviso Legal</a>
+      <a href="politica-privacidad.html" data-i18n="fpriv">Privacidad</a>
     </div>
   </div>
 </footer>
 
 <script>
+const T={
+  es:{
+    'nav-back':'Volver al inicio',
+    'hero-tag':'Trabaja con nosotros',
+    'hero-title':'Nuestro equipo<br>te está <em>buscando.</em>',
+    'hero-sub':'En VECO incorporamos regularmente nuevos perfiles para reforzar nuestras unidades. Si te apasiona el trabajo en altura y quieres formar parte de un equipo de referencia, queremos conocerte.',
+    'why-tag':'Por qué VECO',
+    'why-intro':'Somos una empresa pequeña y altamente especializada. Aquí cada persona cuenta y <strong>los proyectos son únicos</strong>. Trabajamos en toda España y en el extranjero, en entornos donde muy pocos pueden llegar.',
+    'perk1t':'Formación y certificación IRATA',
+    'perk1d':'Apoyamos el desarrollo profesional de nuestro equipo con formación continua y acceso a certificaciones internacionales.',
+    'perk2t':'Proyectos nacionales e internacionales',
+    'perk2d':'Trabajamos en toda España y en proyectos internacionales. Cada obra es diferente y en lugares únicos.',
+    'perk3t':'Seguridad como prioridad absoluta',
+    'perk3d':'Protocolo de seguridad propio. Cero accidentes en toda nuestra trayectoria. Tu integridad es innegociable.',
+    'perk4t':'Equipo reducido y profesional',
+    'perk4d':'Ambiente de trabajo cercano, donde cada técnico tiene voz y los proyectos se trabajan con criterio propio.',
+    'profiles-tag':'Perfiles que buscamos',
+    'badge':'Activo',
+    'p4':'Técnico de geotecnia','p5':'Técnico industrial en altura','p6':'Candidatura espontánea',
+    'form-title':'Envía tu candidatura',
+    'form-sub':'Rellena el formulario y adjunta tu CV. Revisamos todas las candidaturas y te contactamos si hay encaje.',
+    'f-nombre':'Nombre','f-apellidos':'Apellidos','f-email':'Email','f-tel':'Teléfono',
+    'f-perfil':'Perfil profesional','f-area':'Área geográfica',
+    'fsel':'Selecciona...',
+    'fp1':'Técnico IRATA Nivel 1','fp2':'Técnico IRATA Nivel 2','fp3':'Técnico IRATA Nivel 3',
+    'fp4':'Técnico de geotecnia','fp5':'Técnico industrial en altura','fp6':'Candidatura espontánea','fp7':'Otro',
+    'fa1':'Cataluña','fa5':'País Vasco','fa6':'Resto de España','fa7':'Internacional',
+    'f-cv':'Adjuntar CV (PDF)',
+    'f-cv-hint':'Formatos admitidos: PDF, DOC, DOCX · Máximo 5 MB',
+    'f-pres':'Breve presentación',
+    'f-consent1':'Acepto la <a href="politica-privacidad.html" style="color:var(--orange);text-decoration:underline;text-underline-offset:3px">Política de Privacidad</a>',
+    'f-consent2':'Acepto recibir comunicaciones relacionadas con ofertas de empleo de VECO.',
+    'f-btn':'Enviar candidatura →',
+    'success-title':'¡Candidatura recibida!',
+    'success-sub':'Revisamos todas las candidaturas. Si hay encaje, nos ponemos en contacto contigo.',
+    'fcopy':'© 2025 VECO ALTURA S.L. · Todos los derechos reservados',
+    'ftrabaja':'Trabaja con nosotros','faviso':'Aviso Legal','fpriv':'Privacidad'
+  },
+  ca:{
+    'nav-back':'Tornar a l\'inici',
+    'hero-tag':'Treballa amb nosaltres',
+    'hero-title':'El nostre equip<br>t\'està <em>buscant.</em>',
+    'hero-sub':'A VECO incorporem regularment nous perfils per reforçar les nostres unitats. Si t\'apassiona el treball en alçada i vols formar part d\'un equip de referència, volem conèixer-te.',
+    'why-tag':'Per què VECO',
+    'why-intro':'Som una empresa petita i altament especialitzada. Aquí cada persona compta i <strong>els projectes són únics</strong>. Treballem a tota Espanya i a l\'estranger, en entorns on molt pocs poden arribar.',
+    'perk1t':'Formació i certificació IRATA',
+    'perk1d':'Donem suport al desenvolupament professional del nostre equip amb formació contínua i accés a certificacions internacionals.',
+    'perk2t':'Projectes nacionals i internacionals',
+    'perk2d':'Treballem a tota Espanya i en projectes internacionals. Cada obra és diferent i en llocs únics.',
+    'perk3t':'Seguretat com a prioritat absoluta',
+    'perk3d':'Protocol de seguretat propi. Zero accidents en tota la nostra trajectòria. La teva integritat és innegociable.',
+    'perk4t':'Equip reduït i professional',
+    'perk4d':'Ambient de treball proper, on cada tècnic té veu i els projectes es treballen amb criteri propi.',
+    'profiles-tag':'Perfils que busquem',
+    'badge':'Actiu',
+    'p4':'Tècnic de geotècnia','p5':'Tècnic industrial en alçada','p6':'Candidatura espontània',
+    'form-title':'Envia la teva candidatura',
+    'form-sub':'Omple el formulari i adjunta el teu CV. Revisem totes les candidatures i et contactem si hi ha encaix.',
+    'f-nombre':'Nom','f-apellidos':'Cognoms','f-email':'Email','f-tel':'Telèfon',
+    'f-perfil':'Perfil professional','f-area':'Àrea geogràfica',
+    'fsel':'Selecciona...',
+    'fp1':'Tècnic IRATA Nivell 1','fp2':'Tècnic IRATA Nivell 2','fp3':'Tècnic IRATA Nivell 3',
+    'fp4':'Tècnic de geotècnia','fp5':'Tècnic industrial en alçada','fp6':'Candidatura espontània','fp7':'Altre',
+    'fa1':'Catalunya','fa5':'País Basc','fa6':'Resta d\'Espanya','fa7':'Internacional',
+    'f-cv':'Adjuntar CV (PDF)',
+    'f-cv-hint':'Formats admesos: PDF, DOC, DOCX · Màxim 5 MB',
+    'f-pres':'Breu presentació',
+    'f-consent1':'Accepto la <a href="politica-privacidad.html" style="color:var(--orange);text-decoration:underline;text-underline-offset:3px">Política de Privacitat</a>',
+    'f-consent2':'Accepto rebre comunicacions relacionades amb ofertes de feina de VECO.',
+    'f-btn':'Enviar candidatura →',
+    'success-title':'Candidatura rebuda!',
+    'success-sub':'Revisem totes les candidatures. Si hi ha encaix, ens posem en contacte amb tu.',
+    'fcopy':'© 2025 VECO ALTURA S.L. · Tots els drets reservats',
+    'ftrabaja':'Treballa amb nosaltres','faviso':'Avís Legal','fpriv':'Privacitat'
+  }
+};
+
+let lang='es';
+function setLang(l){
+  lang=l;
+  localStorage.setItem('vecoLang',l);
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');
+    if(T[l][k]!==undefined)el.innerHTML=T[l][k];
+  });
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase()===l));
+  document.documentElement.lang=l;
+}
+
+const savedLang=localStorage.getItem('vecoLang');
+if(savedLang&&savedLang!=='es')setLang(savedLang);
+
 function enviarCandidatura(e){
   e.preventDefault();
   e.target.style.display='none';
