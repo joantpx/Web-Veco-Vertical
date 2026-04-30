@@ -110,8 +110,8 @@ section{padding:88px 24px}
 .clientes-track::-webkit-scrollbar{display:none}
 .cliente-card{min-width:calc((100% - 60px) / 4);flex-shrink:0;scroll-snap-align:start;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 24px;gap:8px;transition:all .25s}
 .cliente-card:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.18)}
-.cliente-card img{max-width:100%;max-height:44px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.45;transition:opacity .3s}
-.cliente-card:hover img{opacity:0.85}
+.cliente-card img{max-width:100%;max-height:44px;object-fit:contain;filter:grayscale(1) brightness(1.1);opacity:0.55;transition:all .35s}
+.cliente-card:hover img{filter:none;opacity:1}
 .cliente-name{font-size:12px;font-weight:600;color:var(--grey);text-align:center;line-height:1.3;display:none}
 .cliente-card img.error+.cliente-name{display:block}
 .porque-bg{background:var(--orange);position:relative;overflow:hidden}
@@ -330,35 +330,35 @@ footer{background:#050505;border-top:1px solid var(--border);padding:56px 24px 2
       <button class="clientes-arrow" onclick="clientesScroll(-1)" aria-label="Anterior">&#8592;</button>
       <div class="clientes-track" id="clientesTrack">
         <div class="cliente-card">
-          <img src="https://logo.clearbit.com/diba.cat" alt="Diputació de Barcelona" onerror="this.classList.add('error')"/>
+          <img src="https://media.diba.cat/diba/maqueta/logos/logodiba_header.svg" alt="Diputació de Barcelona" onerror="this.classList.add('error')"/>
           <span class="cliente-name">Diputació de Barcelona</span>
         </div>
         <div class="cliente-card">
-          <img src="https://logo.clearbit.com/fgc.cat" alt="Ferrocarrils de la Generalitat" onerror="this.classList.add('error')"/>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Ferrocarrils_de_la_Generalitat_de_Catalunya_logo_%282019%29.svg" alt="Ferrocarrils de la Generalitat" onerror="this.classList.add('error')"/>
           <span class="cliente-name">Ferrocarrils de la Generalitat</span>
         </div>
         <div class="cliente-card">
-          <img src="https://logo.clearbit.com/adif.es" alt="ADIF" onerror="this.classList.add('error')"/>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Adif_wordmark.svg" alt="ADIF" onerror="this.classList.add('error')"/>
           <span class="cliente-name">ADIF</span>
         </div>
         <div class="cliente-card">
-          <img src="https://logo.clearbit.com/fontagudes.cat" alt="Font Agudes" onerror="this.classList.add('error')"/>
+          <img src="https://fontagudes.com/assets/images/LOGO_Fontagudes_main.png" alt="Font Agudes" onerror="this.classList.add('error')"/>
           <span class="cliente-name">Font Agudes</span>
         </div>
         <div class="cliente-card">
-          <img src="https://logo.clearbit.com/vestas.com" alt="Vestas" onerror="this.classList.add('error')"/>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Vestas.svg" alt="Vestas" onerror="this.classList.add('error')"/>
           <span class="cliente-name">Vestas</span>
         </div>
         <div class="cliente-card">
-          <img src="https://logo.clearbit.com/coca-cola.com" alt="Coca-Cola" onerror="this.classList.add('error')"/>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Coca-Cola_logo.svg" alt="Coca-Cola" onerror="this.classList.add('error')"/>
           <span class="cliente-name">Coca-Cola</span>
         </div>
         <div class="cliente-card">
-          <img src="https://logo.clearbit.com/cellnex.com" alt="Cellnex" onerror="this.classList.add('error')"/>
+          <img src="https://www.cellnex.com/app/themes/cellnex/dist/images/logo-cellnex.svg" alt="Cellnex" onerror="this.classList.add('error')"/>
           <span class="cliente-name">Cellnex</span>
         </div>
         <div class="cliente-card">
-          <img src="https://logo.clearbit.com/siemens.com" alt="Siemens" onerror="this.classList.add('error')"/>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Siemens_AG_logo.svg" alt="Siemens" onerror="this.classList.add('error')"/>
           <span class="cliente-name">Siemens</span>
         </div>
       </div>
