@@ -102,6 +102,18 @@ section{padding:88px 24px}
 .esp-card-icon{font-size:28px;margin-bottom:12px;display:block}
 .esp-card-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:6px}
 .esp-card-desc{font-size:13px;color:var(--grey);line-height:1.6}
+.clientes-bg{background:var(--dark3);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.clientes-wrap{display:flex;align-items:center;gap:16px;margin-top:40px}
+.clientes-arrow{width:44px;height:44px;min-width:44px;border-radius:50%;border:1px solid var(--border);background:var(--dark4);color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;line-height:1}
+.clientes-arrow:hover{background:var(--orange);border-color:var(--orange);color:#000}
+.clientes-track{display:flex;overflow-x:auto;gap:20px;flex:1;scrollbar-width:none;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.clientes-track::-webkit-scrollbar{display:none}
+.cliente-card{min-width:calc((100% - 60px) / 4);flex-shrink:0;scroll-snap-align:start;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 24px;gap:8px;transition:all .25s}
+.cliente-card:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.18)}
+.cliente-card img{max-width:100%;max-height:44px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.45;transition:opacity .3s}
+.cliente-card:hover img{opacity:0.85}
+.cliente-name{font-size:12px;font-weight:600;color:var(--grey);text-align:center;line-height:1.3;display:none}
+.cliente-card img.error+.cliente-name{display:block}
 .porque-bg{background:var(--orange);position:relative;overflow:hidden}
 .porque-bg::before{content:'';position:absolute;right:-200px;top:-200px;width:600px;height:600px;background:rgba(0,0,0,0.1);border-radius:50%}
 .porque-inner{max-width:1200px;margin:0 auto;padding:88px 24px;position:relative;z-index:2}
@@ -307,6 +319,50 @@ footer{background:#050505;border-top:1px solid var(--border);padding:56px 24px 2
       <div class="esp-card"><span class="esp-card-icon">🏔️</span><h3 class="esp-card-title" data-i18n="e8t">Zonas de difícil acceso</h3><div class="esp-card-desc" data-i18n="e8d">Donde los métodos convencionales no llegan, VECO tiene la solución.</div></div>
       <div class="esp-card"><span class="esp-card-icon">🏛️</span><h3 class="esp-card-title" data-i18n="e9t">Restauración de monumentos</h3><div class="esp-card-desc" data-i18n="e9d">Restauración, consolidación y limpieza en monumentos y edificios patrimoniales mediante acceso por cuerdas.</div></div>
       <div class="esp-card"><span class="esp-card-icon">🧹</span><h3 class="esp-card-title" data-i18n="e10t">Limpieza en altura</h3><div class="esp-card-desc" data-i18n="e10d">Limpieza de fachadas, cristales, paneles solares y estructuras en altura sin necesidad de andamios.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="clientes-bg">
+  <div class="section-inner" style="padding-top:64px;padding-bottom:64px">
+    <div class="section-tag" data-i18n="cli-tag">Ya confían en nosotros</div>
+    <div class="clientes-wrap">
+      <button class="clientes-arrow" onclick="clientesScroll(-1)" aria-label="Anterior">&#8592;</button>
+      <div class="clientes-track" id="clientesTrack">
+        <div class="cliente-card">
+          <img src="https://logo.clearbit.com/diba.cat" alt="Diputació de Barcelona" onerror="this.classList.add('error')"/>
+          <span class="cliente-name">Diputació de Barcelona</span>
+        </div>
+        <div class="cliente-card">
+          <img src="https://logo.clearbit.com/fgc.cat" alt="Ferrocarrils de la Generalitat" onerror="this.classList.add('error')"/>
+          <span class="cliente-name">Ferrocarrils de la Generalitat</span>
+        </div>
+        <div class="cliente-card">
+          <img src="https://logo.clearbit.com/adif.es" alt="ADIF" onerror="this.classList.add('error')"/>
+          <span class="cliente-name">ADIF</span>
+        </div>
+        <div class="cliente-card">
+          <img src="https://logo.clearbit.com/fontagudes.cat" alt="Font Agudes" onerror="this.classList.add('error')"/>
+          <span class="cliente-name">Font Agudes</span>
+        </div>
+        <div class="cliente-card">
+          <img src="https://logo.clearbit.com/vestas.com" alt="Vestas" onerror="this.classList.add('error')"/>
+          <span class="cliente-name">Vestas</span>
+        </div>
+        <div class="cliente-card">
+          <img src="https://logo.clearbit.com/coca-cola.com" alt="Coca-Cola" onerror="this.classList.add('error')"/>
+          <span class="cliente-name">Coca-Cola</span>
+        </div>
+        <div class="cliente-card">
+          <img src="https://logo.clearbit.com/cellnex.com" alt="Cellnex" onerror="this.classList.add('error')"/>
+          <span class="cliente-name">Cellnex</span>
+        </div>
+        <div class="cliente-card">
+          <img src="https://logo.clearbit.com/siemens.com" alt="Siemens" onerror="this.classList.add('error')"/>
+          <span class="cliente-name">Siemens</span>
+        </div>
+      </div>
+      <button class="clientes-arrow" onclick="clientesScroll(1)" aria-label="Siguiente">&#8594;</button>
     </div>
   </div>
 </section>
@@ -559,6 +615,7 @@ const T={
     'e8t':'Zonas de difícil acceso','e8d':'Donde los métodos convencionales no llegan, VECO tiene la solución.',
     'e9t':'Restauración de monumentos','e9d':'Restauración, consolidación y limpieza en monumentos y edificios patrimoniales mediante acceso por cuerdas.',
     'e10t':'Limpieza en altura','e10d':'Limpieza de fachadas, cristales, paneles solares y estructuras en altura sin necesidad de andamios.',
+    'cli-tag':'Ya confían en nosotros',
     'pq-tag':'¿Por qué VECO?','pq-title':'La ventaja del acceso<br>por cuerdas','pq-sub':'Nuestro sistema elimina equipos costosos y reduce tiempos y costes sin comprometer la seguridad.',
     'pq1t':'Hasta un 60% más económico','pq1d':'Sin grúas, sin andamios, sin plataformas elevadoras. Solo el equipo necesario.',
     'pq2t':'Mucho más rápido','pq2d':'Montaje y desmontaje inmediato. Empezamos a trabajar el mismo día de llegada.',
@@ -623,6 +680,7 @@ const T={
     'e8t':'Zones de difícil accés','e8d':'On els mètodes convencionals no arriben, VECO té la solució.',
     'e9t':'Restauració de monuments','e9d':'Restauració, consolidació i neteja en monuments i edificis patrimonials mitjançant accés per cordes.',
     'e10t':'Neteja en alçada','e10d':'Neteja de façanes, cristalls, panells solars i estructures en alçada sense necessitat de bastides.',
+    'cli-tag':'Ja confien en nosaltres',
     'pq-tag':'Per què VECO?','pq-title':'L\'avantatge de l\'accés<br>per cordes','pq-sub':'El nostre sistema elimina equips costosos i redueix temps i costos sense comprometre la seguretat.',
     'pq1t':'Fins un 60% més econòmic','pq1d':'Sense grues, sense bastides, sense plataformes elevadores. Només l\'equip necessari.',
     'pq2t':'Molt més ràpid','pq2d':'Muntatge i desmuntatge immediat. Comencem a treballar el mateix dia d\'arribada.',
@@ -670,6 +728,12 @@ function setLang(l){
 }
 const savedLang=localStorage.getItem('vecoLang');
 if(savedLang&&savedLang!=='es')setLang(savedLang);
+
+function clientesScroll(dir){
+  const t=document.getElementById('clientesTrack');
+  const card=t.querySelector('.cliente-card');
+  t.scrollBy({left:dir*(card.offsetWidth+20)*4,behavior:'smooth'});
+}
 
 function selectUrg(el,val){
   document.querySelectorAll('.urg-opt').forEach(o=>{
