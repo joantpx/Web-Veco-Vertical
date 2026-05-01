@@ -342,7 +342,7 @@ footer{background:#050505;border-top:1px solid var(--border);padding:56px 24px 2
           <span class="cliente-name">ADIF</span>
         </div>
         <div class="cliente-card">
-          <img src="https://fontagudes.com/assets/images/LOGO_Fontagudes_main.png" alt="Font Agudes" onerror="this.classList.add('error')"/>
+          <img src="https://fontagudes.com/assets/images/LOGO_Fontagudes_main.png" alt="Font Agudes" style="transform:scale(1.6);transform-origin:center" onerror="this.classList.add('error')"/>
           <span class="cliente-name">Font Agudes</span>
         </div>
         <div class="cliente-card">
@@ -350,8 +350,8 @@ footer{background:#050505;border-top:1px solid var(--border);padding:56px 24px 2
           <span class="cliente-name">Vestas</span>
         </div>
         <div class="cliente-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Coca-Cola_logo.svg" alt="Coca-Cola" onerror="this.classList.add('error')"/>
-          <span class="cliente-name">Coca-Cola</span>
+          <img src="https://www.vic.cat/++theme++vic/img/logo-aj-vic.svg" alt="Ajuntament de Vic" onerror="this.classList.add('error')"/>
+          <span class="cliente-name">Ajuntament de Vic</span>
         </div>
         <div class="cliente-card">
           <img src="https://www.cellnex.com/app/themes/cellnex/dist/images/logo-cellnex.svg" alt="Cellnex" onerror="this.classList.add('error')"/>
@@ -360,6 +360,10 @@ footer{background:#050505;border-top:1px solid var(--border);padding:56px 24px 2
         <div class="cliente-card">
           <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Siemens_AG_logo.svg" alt="Siemens" onerror="this.classList.add('error')"/>
           <span class="cliente-name">Siemens</span>
+        </div>
+        <div class="cliente-card">
+          <img src="https://colonial.es/wp-content/uploads/2022/02/colonial-logo-vectorial-01.svg" alt="Colonial" onerror="this.classList.add('error')"/>
+          <span class="cliente-name">Colonial</span>
         </div>
       </div>
       <button class="clientes-arrow" onclick="clientesScroll(1)" aria-label="Siguiente">&#8594;</button>
@@ -729,18 +733,33 @@ function setLang(l){
 const savedLang=localStorage.getItem('vecoLang');
 if(savedLang&&savedLang!=='es')setLang(savedLang);
 
-let clientesIdx=0;
+let _cliLock=false;
 function clientesScroll(dir){
+  if(_cliLock)return;
+  _cliLock=true;
   const t=document.getElementById('clientesTrack');
-  const cards=t.querySelectorAll('.cliente-card');
-  const total=cards.length;
-  const visible=4;
-  const maxIdx=total-visible;
-  clientesIdx+=dir*visible;
-  if(clientesIdx>maxIdx)clientesIdx=0;
-  if(clientesIdx<0)clientesIdx=maxIdx;
-  t.scrollTo({left:cards[clientesIdx].offsetLeft,behavior:'smooth'});
+  const cw=t.querySelector('.cliente-card').offsetWidth+20;
+  const step=cw*4;
+  const origW=cw*(t.querySelectorAll('.cliente-card').length/2);
+  if(dir===-1&&t.scrollLeft<step){
+    t.scrollLeft=origW;
+    requestAnimationFrame(()=>t.scrollBy({left:-step,behavior:'smooth'}));
+  }else{
+    t.scrollBy({left:dir*step,behavior:'smooth'});
+  }
+  setTimeout(()=>_cliLock=false,600);
 }
+(function initClientesLoop(){
+  const t=document.getElementById('clientesTrack');
+  if(!t)return;
+  const orig=Array.from(t.querySelectorAll('.cliente-card'));
+  orig.forEach(c=>t.appendChild(c.cloneNode(true)));
+  t.addEventListener('scroll',function(){
+    const cw=t.querySelector('.cliente-card').offsetWidth+20;
+    const origW=cw*orig.length;
+    if(this.scrollLeft>=origW)this.scrollLeft-=origW;
+  },{passive:true});
+})();
 
 function selectUrg(el,val){
   document.querySelectorAll('.urg-opt').forEach(o=>{
