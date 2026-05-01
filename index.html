@@ -103,15 +103,13 @@ section{padding:88px 24px}
 .esp-card-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:6px}
 .esp-card-desc{font-size:13px;color:var(--grey);line-height:1.6}
 .clientes-bg{background:var(--dark3);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.clientes-wrap{display:flex;align-items:center;gap:16px;margin-top:40px}
-.clientes-arrow{width:44px;height:44px;min-width:44px;border-radius:50%;border:1px solid var(--border);background:var(--dark4);color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;line-height:1}
-.clientes-arrow:hover{background:var(--orange);border-color:var(--orange);color:#000}
-.clientes-track{display:flex;overflow-x:auto;gap:20px;flex:1;scrollbar-width:none;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
-.clientes-track::-webkit-scrollbar{display:none}
-.cliente-card{min-width:calc((100% - 60px) / 4);flex-shrink:0;scroll-snap-align:start;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 24px;gap:8px;transition:all .25s}
+.clientes-overflow{overflow:hidden;margin-top:40px;-webkit-mask-image:linear-gradient(to right,transparent 0%,black 6%,black 94%,transparent 100%);mask-image:linear-gradient(to right,transparent 0%,black 6%,black 94%,transparent 100%)}
+.clientes-track{display:flex;width:max-content;gap:24px;animation:marqueeLogos 32s linear infinite}
+.clientes-track:hover{animation-play-state:paused}
+@keyframes marqueeLogos{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.cliente-card{width:210px;flex-shrink:0;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 24px;gap:8px;transition:all .25s}
 .cliente-card:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.18)}
-.cliente-card img{width:150px;height:48px;object-fit:contain;opacity:0.85;transition:opacity .25s}
-.cliente-card:hover img{opacity:1}
+.cliente-card img{width:150px;height:48px;object-fit:contain;opacity:1;transition:opacity .25s}
 .cliente-name{font-size:12px;font-weight:600;color:var(--grey);text-align:center;line-height:1.3;display:none}
 .cliente-card img.error+.cliente-name{display:block}
 .porque-bg{background:var(--orange);position:relative;overflow:hidden}
@@ -326,8 +324,7 @@ footer{background:#050505;border-top:1px solid var(--border);padding:56px 24px 2
   <div class="section-inner" style="padding-top:64px;padding-bottom:64px">
     <div class="section-tag" data-i18n="cli-tag">Clientes</div>
     <h2 class="section-title" data-i18n="cli-title">Ya confían en nosotros</h2>
-    <div class="clientes-wrap">
-      <button class="clientes-arrow" onclick="clientesScroll(-1)" aria-label="Anterior">&#8592;</button>
+    <div class="clientes-overflow">
       <div class="clientes-track" id="clientesTrack">
         <div class="cliente-card">
           <img src="https://media.diba.cat/diba/maqueta/logos/logodiba_header.svg" alt="Diputació de Barcelona" onerror="this.classList.add('error')"/>
@@ -362,11 +359,10 @@ footer{background:#050505;border-top:1px solid var(--border);padding:56px 24px 2
           <span class="cliente-name">Siemens</span>
         </div>
         <div class="cliente-card">
-          <img src="https://colonial.es/wp-content/uploads/2022/02/colonial-logo-vectorial-01.svg" alt="Colonial" onerror="this.classList.add('error')"/>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Inmobiliaria_Colonial_Logo.svg" alt="Colonial" onerror="this.classList.add('error')"/>
           <span class="cliente-name">Colonial</span>
         </div>
       </div>
-      <button class="clientes-arrow" onclick="clientesScroll(1)" aria-label="Siguiente">&#8594;</button>
     </div>
   </div>
 </section>
@@ -733,32 +729,10 @@ function setLang(l){
 const savedLang=localStorage.getItem('vecoLang');
 if(savedLang&&savedLang!=='es')setLang(savedLang);
 
-let _cliLock=false;
-function clientesScroll(dir){
-  if(_cliLock)return;
-  _cliLock=true;
-  const t=document.getElementById('clientesTrack');
-  const cw=t.querySelector('.cliente-card').offsetWidth+20;
-  const step=cw;
-  const origW=cw*(t.querySelectorAll('.cliente-card').length/2);
-  if(dir===-1&&t.scrollLeft<cw){
-    t.scrollLeft=origW;
-    requestAnimationFrame(()=>t.scrollBy({left:-step,behavior:'smooth'}));
-  }else{
-    t.scrollBy({left:dir*step,behavior:'smooth'});
-  }
-  setTimeout(()=>_cliLock=false,600);
-}
 (function initClientesLoop(){
   const t=document.getElementById('clientesTrack');
   if(!t)return;
-  const orig=Array.from(t.querySelectorAll('.cliente-card'));
-  orig.forEach(c=>t.appendChild(c.cloneNode(true)));
-  t.addEventListener('scroll',function(){
-    const cw=t.querySelector('.cliente-card').offsetWidth+20;
-    const origW=cw*orig.length;
-    if(this.scrollLeft>=origW)this.scrollLeft-=origW;
-  },{passive:true});
+  Array.from(t.querySelectorAll('.cliente-card')).forEach(c=>t.appendChild(c.cloneNode(true)));
 })();
 
 function selectUrg(el,val){
