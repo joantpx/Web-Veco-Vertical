@@ -144,12 +144,17 @@ section{padding:88px 24px}
 .porque-stat-num{font-size:3rem;font-weight:900;color:#0a0a0a;line-height:1}
 .porque-stat-label{font-size:13px;color:rgba(0,0,0,0.65);margin-top:6px}
 .galeria-bg{background:var(--dark)}
-.galeria-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:48px;border-radius:16px;overflow:hidden}
-.galeria-img{aspect-ratio:4/3;overflow:hidden}
+.galeria-wrap{position:relative;margin-top:48px}
+.galeria-overflow{overflow-x:auto;scrollbar-width:none;border-radius:16px;width:100%}
+.galeria-overflow::-webkit-scrollbar{display:none}
+.galeria-grid{display:flex;gap:3px}
+.galeria-img{flex:0 0 calc((min(100vw - 48px,1200px) - 6px) / 3);aspect-ratio:4/3;overflow:hidden}
 .galeria-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
 .galeria-img:hover img{transform:scale(1.05)}
-.galeria-img-tall{grid-row:span 2;aspect-ratio:auto}
-.galeria-img-tall img{height:100%}
+.galeria-arrow{width:44px;height:44px;border-radius:50%;border:1px solid var(--border);background:var(--dark4);color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;position:absolute;top:50%;transform:translateY(-50%);z-index:2;line-height:1}
+.galeria-arrow:hover{background:var(--orange);border-color:var(--orange);color:#0a0a0a}
+.galeria-arrow-prev{left:-22px}
+.galeria-arrow-next{right:-22px}
 .proceso-bg{background:var(--dark2)}
 .proceso-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:56px;border-radius:16px;overflow:hidden}
 .paso{background:var(--dark3);padding:36px 28px;position:relative}
@@ -224,8 +229,8 @@ footer{background:#050505;border-top:1px solid var(--border);padding:56px 24px 2
   .porque-grid{grid-template-columns:1fr}
   .porque-stats{grid-template-columns:1fr 1fr}
   .servicios-grid{grid-template-columns:1fr}
-  .galeria-grid{grid-template-columns:1fr 1fr}
-  .galeria-img-tall{grid-row:span 1}
+  .galeria-img{flex:0 0 calc((100vw - 48px - 3px) / 2)}
+  .galeria-arrow{display:none}
   .proceso-steps{grid-template-columns:1fr}
   .paso-arrow{display:none}
   .cert-section-grid{grid-template-columns:1fr 1fr}
@@ -517,24 +522,30 @@ footer{background:#050505;border-top:1px solid var(--border);padding:56px 24px 2
     <div class="section-tag" data-i18n="gal-tag">Galería</div>
     <h2 class="section-title" data-i18n="gal-title">Nuestros proyectos</h2>
     <p class="section-sub" data-i18n="gal-sub">Una muestra de los trabajos realizados en los distintos sectores en los que operamos.</p>
-    <div class="galeria-grid">
-      <div class="galeria-img galeria-img-tall"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=503,h=464,fit=crop/mnlqeyRk6Gt1azlL/img-20241212-wa0003-mjEqy0DP7BIPa1Gv.jpg" alt="Técnico VECO realizando trabajos verticales con acceso por cuerdas en altura" loading="lazy" width="503" height="928"/></div>
-      <div class="galeria-img"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=503,h=464,fit=crop/mnlqeyRk6Gt1azlL/img-20241212-wa0006-A3QONZ4aNOS5JgPo.jpg" alt="Rope access VECO: trabajo vertical en estructura sin andamios ni grúas" loading="lazy" width="503" height="464"/></div>
-      <div class="galeria-img"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=503,h=464,fit=crop/mnlqeyRk6Gt1azlL/img-20241212-wa0008-A3QONZ4aBruBxN42.jpg" alt="Técnico certificado IRATA de VECO en trabajos de rehabilitación de fachada" loading="lazy" width="503" height="464"/></div>
-      <div class="galeria-img"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=503,h=464,fit=crop/mnlqeyRk6Gt1azlL/img-20241215-wa0020-YX4a5G91WJCPGRMa.jpg" alt="Trabajos de geotecnia y estabilización de taludes con acceso por cuerdas — VECO Vertical" loading="lazy" width="503" height="464"/></div>
-      <div class="galeria-img"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1920,fit=crop/mnlqeyRk6Gt1azlL/istock-1414735990-YleqbpxajeC4Xr03.jpg" alt="Mantenimiento industrial en altura: técnico VECO en instalación con rope access" loading="lazy" width="1920" height="1080"/></div>
-      <div class="galeria-img galeria-img-tall"><img src="images/veco-equipo-rehabilitacion-fachada.jpg" alt="Equipo de técnicos VECO certificados IRATA rehabilitando fachada de edificio en altura" loading="lazy"/></div>
-      <div class="galeria-img"><img src="images/veco-limpieza-cristales.jpg" alt="Técnico VECO realizando limpieza de cristales en altura con acceso por cuerdas" loading="lazy"/></div>
-      <div class="galeria-img"><img src="images/veco-limpieza-fachada-presion.jpg" alt="Limpieza de fachada con hidropresión mediante rope access — VECO Vertical" loading="lazy"/></div>
-      <div class="galeria-img"><img src="images/veco-reparacion-cornisa-edificio.jpg" alt="Técnico VECO inspeccionando y reparando cornisa de edificio con acceso por cuerdas" loading="lazy"/></div>
-      <div class="galeria-img"><img src="images/veco-trabajo-fachada-ladrillo.jpg" alt="Técnico VECO en fachada de ladrillo realizando trabajos verticales con rope access" loading="lazy"/></div>
-      <div class="galeria-img"><img src="images/veco-reparacion-voladizo-fachada.jpg" alt="Reparación de voladizo y cornisa deteriorada con técnica de acceso por cuerdas — VECO" loading="lazy"/></div>
-      <div class="galeria-img"><img src="images/veco-mantenimiento-industrial-silo.jpg" alt="Mantenimiento industrial en silo y maquinaria en altura mediante rope access — VECO" loading="lazy"/></div>
-      <div class="galeria-img"><img src="images/veco-inspeccion-estructura-metalica.jpg" alt="Inspección técnica de estructura metálica industrial con acceso por cuerdas — VECO" loading="lazy"/></div>
-      <div class="galeria-img"><img src="images/veco-inspeccion-estructura-puente.jpg" alt="Técnico VECO inspeccionando estructura metálica de puente en trabajos nocturnos" loading="lazy"/></div>
-      <div class="galeria-img"><img src="images/veco-trabajo-puente-nocturno.jpg" alt="Trabajos nocturnos en interior de puente metálico con rope access — VECO Vertical" loading="lazy"/></div>
-      <div class="galeria-img"><img src="images/veco-geotecnia-malla-contencion.jpg" alt="Técnicos VECO instalando malla de contención en trabajos de geotecnia y estabilización de taludes" loading="lazy"/></div>
-      <div class="galeria-img"><img src="images/veco-formacion-rope-access.jpg" alt="Formación y entrenamiento de técnicos en rope access y trabajos verticales — VECO" loading="lazy"/></div>
+    <div class="galeria-wrap">
+      <button class="galeria-arrow galeria-arrow-prev" onclick="galeriaScroll(-1)" aria-label="Anterior">&#8592;</button>
+      <div class="galeria-overflow">
+        <div class="galeria-grid" id="galeriaTrack">
+          <div class="galeria-img"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=503,h=464,fit=crop/mnlqeyRk6Gt1azlL/img-20241212-wa0003-mjEqy0DP7BIPa1Gv.jpg" alt="Técnico VECO realizando trabajos verticales con acceso por cuerdas en altura" loading="lazy" width="503" height="464"/></div>
+          <div class="galeria-img"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=503,h=464,fit=crop/mnlqeyRk6Gt1azlL/img-20241212-wa0006-A3QONZ4aNOS5JgPo.jpg" alt="Rope access VECO: trabajo vertical en estructura sin andamios ni grúas" loading="lazy" width="503" height="464"/></div>
+          <div class="galeria-img"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=503,h=464,fit=crop/mnlqeyRk6Gt1azlL/img-20241212-wa0008-A3QONZ4aBruBxN42.jpg" alt="Técnico certificado IRATA de VECO en trabajos de rehabilitación de fachada" loading="lazy" width="503" height="464"/></div>
+          <div class="galeria-img"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=503,h=464,fit=crop/mnlqeyRk6Gt1azlL/img-20241215-wa0020-YX4a5G91WJCPGRMa.jpg" alt="Trabajos de geotecnia y estabilización de taludes con acceso por cuerdas — VECO Vertical" loading="lazy" width="503" height="464"/></div>
+          <div class="galeria-img"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1920,fit=crop/mnlqeyRk6Gt1azlL/istock-1414735990-YleqbpxajeC4Xr03.jpg" alt="Mantenimiento industrial en altura: técnico VECO en instalación con rope access" loading="lazy" width="1920" height="1080"/></div>
+          <div class="galeria-img"><img src="images/veco-equipo-rehabilitacion-fachada.jpg" alt="Equipo de técnicos VECO certificados IRATA rehabilitando fachada de edificio en altura" loading="lazy"/></div>
+          <div class="galeria-img"><img src="images/veco-limpieza-cristales.jpg" alt="Técnico VECO realizando limpieza de cristales en altura con acceso por cuerdas" loading="lazy"/></div>
+          <div class="galeria-img"><img src="images/veco-limpieza-fachada-presion.jpg" alt="Limpieza de fachada con hidropresión mediante rope access — VECO Vertical" loading="lazy"/></div>
+          <div class="galeria-img"><img src="images/veco-reparacion-cornisa-edificio.jpg" alt="Técnico VECO inspeccionando y reparando cornisa de edificio con acceso por cuerdas" loading="lazy"/></div>
+          <div class="galeria-img"><img src="images/veco-trabajo-fachada-ladrillo.jpg" alt="Técnico VECO en fachada de ladrillo realizando trabajos verticales con rope access" loading="lazy"/></div>
+          <div class="galeria-img"><img src="images/veco-reparacion-voladizo-fachada.jpg" alt="Reparación de voladizo y cornisa deteriorada con técnica de acceso por cuerdas — VECO" loading="lazy"/></div>
+          <div class="galeria-img"><img src="images/veco-mantenimiento-industrial-silo.jpg" alt="Mantenimiento industrial en silo y maquinaria en altura mediante rope access — VECO" loading="lazy"/></div>
+          <div class="galeria-img"><img src="images/veco-inspeccion-estructura-metalica.jpg" alt="Inspección técnica de estructura metálica industrial con acceso por cuerdas — VECO" loading="lazy"/></div>
+          <div class="galeria-img"><img src="images/veco-inspeccion-estructura-puente.jpg" alt="Técnico VECO inspeccionando estructura metálica de puente en trabajos nocturnos" loading="lazy"/></div>
+          <div class="galeria-img"><img src="images/veco-trabajo-puente-nocturno.jpg" alt="Trabajos nocturnos en interior de puente metálico con rope access — VECO Vertical" loading="lazy"/></div>
+          <div class="galeria-img"><img src="images/veco-geotecnia-malla-contencion.jpg" alt="Técnicos VECO instalando malla de contención en trabajos de geotecnia y estabilización de taludes" loading="lazy"/></div>
+          <div class="galeria-img"><img src="images/veco-formacion-rope-access.jpg" alt="Formación y entrenamiento de técnicos en rope access y trabajos verticales — VECO" loading="lazy"/></div>
+        </div>
+      </div>
+      <button class="galeria-arrow galeria-arrow-next" onclick="galeriaScroll(1)" aria-label="Siguiente">&#8594;</button>
     </div>
   </div>
 </section>
@@ -881,6 +892,12 @@ window.addEventListener('scroll',()=>{
   document.querySelector('header').style.background=
     window.scrollY>50?'rgba(10,10,10,0.98)':'rgba(10,10,10,0.95)';
 });
+
+function galeriaScroll(dir){
+  const overflow=document.querySelector('.galeria-overflow');
+  const imgW=overflow.querySelector('.galeria-img').getBoundingClientRect().width+3;
+  overflow.scrollBy({left:dir*imgW*3,behavior:'smooth'});
+}
 </script>
 </body>
 </html>
