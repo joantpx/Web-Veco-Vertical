@@ -614,15 +614,15 @@ footer{background:#050505;border-top:1px solid var(--border);padding:56px 24px 2
     <h2 class="section-title" data-i18n="con-title">Hablemos de tu proyecto</h2>
     <p class="section-sub" data-i18n="con-sub">Cuéntanos tu reto. Te respondemos en menos de 24 horas con un presupuesto sin compromiso.</p>
     <div class="contacto-grid">
-      <form class="contacto-form" onsubmit="enviarForm(event)">
+      <form class="contacto-form" id="contacto-form">
         <div class="form-row">
-          <div class="fg"><label data-i18n="fn">Nombre</label><input type="text" placeholder="Joan García"/></div>
-          <div class="fg"><label data-i18n="fe">Email</label><input type="email" placeholder="joan@empresa.com"/></div>
+          <div class="fg"><label data-i18n="fn">Nombre</label><input type="text" name="nombre" placeholder="Joan García" required/></div>
+          <div class="fg"><label data-i18n="fe">Email</label><input type="email" name="email" placeholder="joan@empresa.com" required/></div>
         </div>
         <div class="form-row">
-          <div class="fg"><label data-i18n="ft">Teléfono</label><input type="tel" placeholder="+34 600 000 000"/></div>
+          <div class="fg"><label data-i18n="ft">Teléfono</label><input type="tel" name="telefono" placeholder="+34 600 000 000"/></div>
           <div class="fg"><label data-i18n="fsrv">Servicio</label>
-            <select>
+            <select name="servicio">
               <option data-i18n="fsel">Selecciona...</option>
               <option data-i18n="fo1">Construcción / Fachadas</option>
               <option data-i18n="fo2">Geotecnia / Taludes</option>
@@ -633,7 +633,7 @@ footer{background:#050505;border-top:1px solid var(--border);padding:56px 24px 2
             </select>
           </div>
         </div>
-        <div class="fg"><label data-i18n="fmsg">Describe tu proyecto</label><textarea placeholder="Cuéntanos qué necesitas, dónde está el trabajo, dimensiones aproximadas..."></textarea></div>
+        <div class="fg"><label data-i18n="fmsg">Describe tu proyecto</label><textarea name="mensaje" placeholder="Cuéntanos qué necesitas, dónde está el trabajo, dimensiones aproximadas..."></textarea></div>
         <div class="fg">
           <label data-i18n="furg">¿Es urgente?</label>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:4px" id="urgGrid">
@@ -656,15 +656,17 @@ footer{background:#050505;border-top:1px solid var(--border);padding:56px 24px 2
         </div>
         <div style="display:flex;flex-direction:column;gap:12px">
           <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer">
-            <input type="checkbox" id="chkPrivacy" required style="margin-top:2px;accent-color:var(--orange);width:16px;height:16px;min-width:16px;cursor:pointer"/>
+            <input type="checkbox" id="chkPrivacy" name="privacidad" value="aceptada" required style="margin-top:2px;accent-color:var(--orange);width:16px;height:16px;min-width:16px;cursor:pointer"/>
             <span style="font-size:13px;color:var(--grey);line-height:1.55" data-i18n="fpriv">Acepto la <a href="politica-privacidad.html" style="color:var(--orange);text-decoration:underline;text-underline-offset:3px">Política de Privacidad</a></span>
           </label>
           <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer">
-            <input type="checkbox" id="chkComercial" style="margin-top:2px;accent-color:var(--orange);width:16px;height:16px;min-width:16px;cursor:pointer"/>
+            <input type="checkbox" id="chkComercial" name="comunicaciones_comerciales" value="aceptada" style="margin-top:2px;accent-color:var(--orange);width:16px;height:16px;min-width:16px;cursor:pointer"/>
             <span style="font-size:13px;color:var(--grey);line-height:1.55" data-i18n="fcom">Acepto recibir información comercial, incluso por correo electrónico.</span>
           </label>
         </div>
+        <input type="hidden" name="urgencia" id="urgenciaInput" value=""/>
         <button type="submit" class="btn-primary" style="justify-content:center;border:none;cursor:pointer;width:100%" data-i18n="fbtn">Enviar solicitud →</button>
+        <div id="form-msg" style="display:none;padding:14px 16px;border-radius:8px;font-size:14px;font-weight:500;text-align:center;margin-top:4px"></div>
       </form>
       <div class="contacto-info">
         <div class="info-block"><div class="info-icon">📞</div><div><h3 data-i18n="c1t">Teléfono</h3><p><a href="tel:+34697758626">+34 697 75 86 26</a></p></div></div>
@@ -899,12 +901,43 @@ function selectUrg(el,val){
   el.style.border='1.5px solid var(--orange)';
   el.style.background='rgba(245,200,0,0.08)';
   el.dataset.val=val;
+  document.getElementById('urgenciaInput').value=val;
 }
 
-function enviarForm(e){
+document.getElementById('contacto-form').addEventListener('submit',async function(e){
   e.preventDefault();
-  alert(lang==='es'?'¡Gracias! Te contactaremos en menos de 24 horas.':'Gràcies! Et contactarem en menys de 24 hores.');
-}
+  const btn=this.querySelector('button[type=submit]');
+  const msg=document.getElementById('form-msg');
+  btn.disabled=true;
+  btn.textContent=lang==='es'?'Enviando...':'Enviant...';
+  try{
+    const res=await fetch('https://formspree.io/f/xbdwbbbj',{
+      method:'POST',
+      body:new FormData(this),
+      headers:{Accept:'application/json'}
+    });
+    if(res.ok){
+      msg.style.display='block';
+      msg.style.background='rgba(34,197,94,0.12)';
+      msg.style.color='#4ade80';
+      msg.style.border='1px solid rgba(34,197,94,0.25)';
+      msg.textContent=lang==='es'?'¡Gracias! Te contactaremos en menos de 24 horas.':'Gràcies! Et contactarem en menys de 24 hores.';
+      this.reset();
+      document.querySelectorAll('.urg-opt').forEach(o=>{o.style.border='1.5px solid rgba(255,255,255,0.08)';o.style.background='transparent';});
+    }else{
+      throw new Error();
+    }
+  }catch{
+    msg.style.display='block';
+    msg.style.background='rgba(239,68,68,0.12)';
+    msg.style.color='#f87171';
+    msg.style.border='1px solid rgba(239,68,68,0.25)';
+    msg.textContent=lang==='es'?'Error al enviar. Inténtalo de nuevo o escríbenos a contacto@vecoaltura.com.':'Error en enviar. Torna-ho a intentar o escriu-nos a contacto@vecoaltura.com.';
+  }finally{
+    btn.disabled=false;
+    btn.textContent=lang==='es'?'Enviar solicitud →':'Enviar sol·licitud →';
+  }
+});
 
 window.addEventListener('scroll',()=>{
   document.querySelector('header').style.background=
