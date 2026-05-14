@@ -615,6 +615,9 @@ footer{background:#050505;border-top:1px solid var(--border);padding:56px 24px 2
     <p class="section-sub" data-i18n="con-sub">Cuéntanos tu reto. Te respondemos en menos de 24 horas con un presupuesto sin compromiso.</p>
     <div class="contacto-grid">
       <form class="contacto-form" id="contacto-form">
+        <input type="hidden" name="access_key" value="25cb03b9-4cab-4d0f-bf5d-39fab8479cc0"/>
+        <input type="hidden" name="_subject" value="Nueva solicitud de presupuesto - VECO Altura"/>
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off"/>
         <div class="form-row">
           <div class="fg"><label data-i18n="fn">Nombre</label><input type="text" name="nombre" placeholder="Joan García" required/></div>
           <div class="fg"><label data-i18n="fe">Email</label><input type="email" name="email" placeholder="joan@empresa.com" required/></div>
@@ -911,12 +914,13 @@ document.getElementById('contacto-form').addEventListener('submit',async functio
   btn.disabled=true;
   btn.textContent=lang==='es'?'Enviando...':'Enviant...';
   try{
-    const res=await fetch('https://formsubmit.co/ajax/contacto@vecoaltura.com',{
+    const res=await fetch('https://api.web3forms.com/submit',{
       method:'POST',
       body:new FormData(this),
       headers:{Accept:'application/json'}
     });
-    if(res.ok){
+    const data=await res.json();
+    if(res.ok&&data.success){
       msg.style.display='block';
       msg.style.background='rgba(34,197,94,0.12)';
       msg.style.color='#4ade80';

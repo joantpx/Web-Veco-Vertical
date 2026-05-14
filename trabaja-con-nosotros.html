@@ -223,6 +223,9 @@ footer{background:#050505;border-top:1px solid var(--border);padding:40px 24px}
       <h2 class="form-title" data-i18n="form-title">Envía tu candidatura</h2>
       <p class="form-sub" data-i18n="form-sub">Rellena el formulario y adjunta tu CV. Revisamos todas las candidaturas y te contactamos si hay encaje.</p>
       <form class="form-fields" onsubmit="enviarCandidatura(event)">
+        <input type="hidden" name="access_key" value="25cb03b9-4cab-4d0f-bf5d-39fab8479cc0"/>
+        <input type="hidden" name="_subject" value="Nueva candidatura - VECO Altura"/>
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off"/>
         <div class="form-row">
           <div class="fg"><label data-i18n="f-nombre">Nombre</label><input type="text" name="nombre" required/></div>
           <div class="fg"><label data-i18n="f-apellidos">Apellidos</label><input type="text" name="apellidos" required/></div>
@@ -401,12 +404,13 @@ async function enviarCandidatura(e){
   btn.disabled=true;
   btn.textContent=lang==='es'?'Enviando...':'Enviant...';
   try{
-    const res=await fetch('https://formsubmit.co/ajax/contacto@vecoaltura.com',{
+    const res=await fetch('https://api.web3forms.com/submit',{
       method:'POST',
       body:new FormData(form),
       headers:{Accept:'application/json'}
     });
-    if(res.ok){
+    const data=await res.json();
+    if(res.ok&&data.success){
       form.style.display='none';
       document.getElementById('successMsg').style.display='block';
     }else{
