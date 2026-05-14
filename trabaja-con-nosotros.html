@@ -224,17 +224,17 @@ footer{background:#050505;border-top:1px solid var(--border);padding:40px 24px}
       <p class="form-sub" data-i18n="form-sub">Rellena el formulario y adjunta tu CV. Revisamos todas las candidaturas y te contactamos si hay encaje.</p>
       <form class="form-fields" onsubmit="enviarCandidatura(event)">
         <div class="form-row">
-          <div class="fg"><label data-i18n="f-nombre">Nombre</label><input type="text" required/></div>
-          <div class="fg"><label data-i18n="f-apellidos">Apellidos</label><input type="text" required/></div>
+          <div class="fg"><label data-i18n="f-nombre">Nombre</label><input type="text" name="nombre" required/></div>
+          <div class="fg"><label data-i18n="f-apellidos">Apellidos</label><input type="text" name="apellidos" required/></div>
         </div>
         <div class="form-row">
-          <div class="fg"><label data-i18n="f-email">Email</label><input type="email" required/></div>
-          <div class="fg"><label data-i18n="f-tel">Teléfono</label><input type="tel"/></div>
+          <div class="fg"><label data-i18n="f-email">Email</label><input type="email" name="email" required/></div>
+          <div class="fg"><label data-i18n="f-tel">Teléfono</label><input type="tel" name="telefono"/></div>
         </div>
         <div class="form-row">
           <div class="fg">
             <label data-i18n="f-perfil">Perfil profesional</label>
-            <select required>
+            <select name="perfil" required>
               <option value="" data-i18n="fsel">Selecciona...</option>
               <option data-i18n="fp1">Técnico IRATA Nivel 1</option>
               <option data-i18n="fp2">Técnico IRATA Nivel 2</option>
@@ -247,7 +247,7 @@ footer{background:#050505;border-top:1px solid var(--border);padding:40px 24px}
           </div>
           <div class="fg">
             <label data-i18n="f-area">Área geográfica</label>
-            <select>
+            <select name="area">
               <option value="" data-i18n="fsel">Selecciona...</option>
               <option data-i18n="fa1">Cataluña</option>
               <option>Madrid</option>
@@ -261,20 +261,20 @@ footer{background:#050505;border-top:1px solid var(--border);padding:40px 24px}
         </div>
         <div class="fg">
           <label data-i18n="f-cv">Adjuntar CV (PDF)</label>
-          <input type="file" accept=".pdf,.doc,.docx" required/>
+          <input type="file" name="cv" id="cvFile" accept=".pdf,.doc,.docx" required/>
           <p class="file-hint" data-i18n="f-cv-hint">Formatos admitidos: PDF, DOC, DOCX · Máximo 5 MB</p>
         </div>
         <div class="fg">
           <label data-i18n="f-pres">Breve presentación</label>
-          <textarea></textarea>
+          <textarea name="presentacion"></textarea>
         </div>
         <div class="consent">
           <label>
-            <input type="checkbox" required/>
+            <input type="checkbox" name="privacidad" value="aceptada" required/>
             <span data-i18n="f-consent1">Acepto la <a href="politica-privacidad.html">Política de Privacidad</a></span>
           </label>
           <label>
-            <input type="checkbox"/>
+            <input type="checkbox" name="comunicaciones" value="aceptada"/>
             <span data-i18n="f-consent2">Acepto recibir comunicaciones relacionadas con ofertas de empleo de VECO.</span>
           </label>
         </div>
@@ -394,10 +394,29 @@ function setLang(l){
 const savedLang=localStorage.getItem('vecoLang');
 if(savedLang&&savedLang!=='es')setLang(savedLang);
 
-function enviarCandidatura(e){
+async function enviarCandidatura(e){
   e.preventDefault();
-  e.target.style.display='none';
-  document.getElementById('successMsg').style.display='block';
+  const form=e.target;
+  const btn=form.querySelector('button[type=submit]');
+  btn.disabled=true;
+  btn.textContent=lang==='es'?'Enviando...':'Enviant...';
+  try{
+    const res=await fetch('https://formsubmit.co/ajax/contacto@vecoaltura.com',{
+      method:'POST',
+      body:new FormData(form),
+      headers:{Accept:'application/json'}
+    });
+    if(res.ok){
+      form.style.display='none';
+      document.getElementById('successMsg').style.display='block';
+    }else{
+      throw new Error();
+    }
+  }catch{
+    btn.disabled=false;
+    btn.textContent=lang==='es'?'Enviar candidatura →':'Enviar candidatura →';
+    alert(lang==='es'?'Error al enviar. Inténtalo de nuevo o escríbenos a contacto@vecoaltura.com.':'Error en enviar. Escriu-nos a contacto@vecoaltura.com.');
+  }
 }
 </script>
 

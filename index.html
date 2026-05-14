@@ -911,7 +911,7 @@ document.getElementById('contacto-form').addEventListener('submit',async functio
   btn.disabled=true;
   btn.textContent=lang==='es'?'Enviando...':'Enviant...';
   try{
-    const res=await fetch('https://formspree.io/f/xbdwbbbj',{
+    const res=await fetch('https://formsubmit.co/ajax/contacto@vecoaltura.com',{
       method:'POST',
       body:new FormData(this),
       headers:{Accept:'application/json'}
